@@ -1,0 +1,37 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SavingsCalc from '../components/SavingsCalc.astro';
+import AffiliateLinks from '../components/AffiliateLinks.astro';
+---
+<BaseLayout title="Tarifberater24 — Спести до €400 годишно" lang="bg">
+  <section class="hero py-20 px-4 bg-gradient-to-r from-blue-600 to-blue-800 text-white text-center">
+    <h1 class="text-4xl font-bold mb-4">Спести до €400 годишно на ток</h1>
+    <p class="text-xl mb-8">Ако си нов в Германия, почти сигурно надплащаш. Провери колко.</p>
+    <SavingsCalc lang="bg" />
+  </section>
+  
+  <section class="py-16 px-4">
+    <div class="max-w-2xl mx-auto">
+      <AffiliateLinks />
+      
+      <div class="mt-12">
+        <h2 class="text-3xl font-bold mb-4">Защо е толкова скъпо?</h2>
+        <p class="text-lg mb-6">Ако си се нанесъл без да избереш доставчик, попадаш автоматично в <strong>Grundversorgung</strong> — най-скъпата тарифа в Германия.</p>
+        
+        <h3 class="text-2xl font-bold mb-4">Как да спестяваш?</h3>
+        <ol class="list-decimal list-inside space-y-2 text-lg mb-6">
+          <li>Отвори Check24 или Tarifcheck</li>
+          <li>Въведи своя пощенски код</li>
+          <li>Смяна на доставчик отнема 10 минути</li>
+          <li>Спестяваш €280–450 годишно</li>
+        </ol>
+
+        <h3 class="text-2xl font-bold mb-4">Интернет без Schufa?</h3>
+        <p class="text-lg mb-6">Ако нямаш Schufa история, Vodafone и Telefonica предлагат договори без проверка. Цена: €25–50/месец</p>
+        
+        <h3 class="text-2xl font-bold mb-4">Разплащателна сметка?</h3>
+        <p class="text-lg">N26 и Wise приемат документи от новодошли. Нужни: паспорт, адрес, телефон.</p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

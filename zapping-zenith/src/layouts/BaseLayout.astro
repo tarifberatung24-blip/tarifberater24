@@ -1,0 +1,35 @@
+---
+import '../styles/global.css';
+interface Props { title: string; lang: 'bg' | 'de'; }
+const { title, lang } = Astro.props;
+---
+<!DOCTYPE html>
+<html lang={lang}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content="Спести на ток, газ, интернет в Германия" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{title}</title>
+  </head>
+  <body>
+    <nav class="bg-gray-900 text-white py-4 px-4">
+      <div class="max-w-4xl mx-auto flex justify-between items-center">
+        <a href="/" class="font-bold text-xl">Tarifberater24</a>
+        <div class="space-x-4">
+          <a href="/" class="hover:opacity-80">BG</a>
+          <a href="/de/" class="hover:opacity-80">DE</a>
+          <a href="/impressum" class="text-xs hover:opacity-80">Impressum</a>
+        </div>
+      </div>
+    </nav>
+    
+    <main>
+      <slot />
+    </main>
+    
+    <footer class="bg-gray-900 text-white py-8 px-4 text-center text-sm">
+      <p>&copy; 2026 Tarifberater24. <a href="/impressum" class="hover:underline">Impressum</a></p>
+    </footer>
+  </body>
+</html>
