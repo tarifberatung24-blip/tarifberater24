@@ -1,10 +1,10 @@
+import { supabaseServer } from '@/lib/supabase';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
 
-    // Validate required fields
     const { name, email, phone, service, gdprConsent } = body;
 
     if (!name || !email || !phone || !service || !gdprConsent) {
@@ -14,32 +14,32 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // For MVP, we'll store to a simple JSON file or log
-    // In production, this would connect to Supabase
-    console.log('Lead received:', {
-      name,
-      email,
-      phone,
-      service,
-      gdprConsent,
-      timestamp: new Date().toISOString(),
-    });
+    const { data, error } = await supabaseServer
+      .from('leads')
+      .insert([
+        {
+          name,
+          email,
+          phone,
+          service,
+          gdpr_consent: gdprConsent,
+          status: 'new',
+        },
+      ])
+      .select();
 
-    // TODO: Connect to Supabase
-    // const supabase = createClient();
-    // const { data, error } = await supabase.from('leads').insert([
-    //   {
-    //     name,
-    //     email,
-    //     phone,
-    //     service,
-    //     gdpr_consent: gdprConsent,
-    //     status: 'new',
-    //   },
-    // ]);
+    if (error) {
+      console.error('Supabase error:', error);
+      return NextResponse.json(
+        { error: 'Failed to save lead' },
+        { status: 500 }
+      );
+    }
+
+    console.log('Lead saved:', data);
 
     return NextResponse.json(
-      { success: true, message: 'Lead saved successfully' },
+      { success: true, message: 'Lead saved successfully', data },
       { status: 201 }
     );
   } catch (error) {
