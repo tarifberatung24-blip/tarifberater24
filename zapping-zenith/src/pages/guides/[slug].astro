@@ -1,0 +1,52 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  const guides = await getCollection('guides');
+  return guides.map((guide) => ({
+    params: { slug: guide.id },
+    props: { guide },
+  }));
+}
+
+const { guide } = Astro.props;
+const { Content } = await render(guide);
+---
+<BaseLayout title={`${guide.data.title} — Tarifberater24`} lang="bg">
+  <article class="py-16 px-4">
+    <div class="max-w-2xl mx-auto prose-guide">
+      <a href="/guides/" class="text-blue-600 font-bold hover:underline">&larr; Всички статии</a>
+      <h1 class="text-4xl font-bold mt-4 mb-8">{guide.data.icon} {guide.data.title}</h1>
+      <Content />
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .prose-guide :global(p) {
+    @apply text-lg mb-6 leading-relaxed;
+  }
+  .prose-guide :global(h2) {
+    @apply text-2xl font-bold mt-10 mb-4;
+  }
+  .prose-guide :global(h3) {
+    @apply text-xl font-bold mt-8 mb-3;
+  }
+  .prose-guide :global(ul),
+  .prose-guide :global(ol) {
+    @apply list-inside space-y-2 text-lg mb-6 pl-2;
+  }
+  .prose-guide :global(ul) {
+    @apply list-disc;
+  }
+  .prose-guide :global(ol) {
+    @apply list-decimal;
+  }
+  .prose-guide :global(strong) {
+    @apply font-bold;
+  }
+  .prose-guide :global(a) {
+    @apply text-blue-600 font-bold hover:underline;
+  }
+</style>
